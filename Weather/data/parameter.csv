@@ -5,12 +5,12 @@ SampleDataFile,https://www1.ncdc.noaa.gov/pub/data/noaa/isd-lite/2017/010430-999
 DataFormat,data/data_structure.csv
 StationHistoryDataFormat,data/station_hist_data_structure.csv
 StationHistoryFileHeaderRows,22
-StartYear,2007
+StartYear,2016
 EndYear,2017
 StartLat,
 EndLat,
 StartLon,
 EndLon,
-USAFList,"722590,722580"
+USAFList,"722590, 722580"
 CTRYList,
 STList,
