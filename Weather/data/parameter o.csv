@@ -1,0 +1,4 @@
+ParamName,ParamValue
+Data,https://www1.ncdc.noaa.gov/pub/data/noaa/isd-lite/
+StationHistoryFilename,ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.txt
+SampleDataFile,

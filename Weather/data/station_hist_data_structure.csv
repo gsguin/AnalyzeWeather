@@ -1,0 +1,12 @@
+Field_Name,Start_Pos,Length,Data_Type
+USAF,1,6,s
+WBAN,8,5,s
+STATION NAME,14,30,s
+CTRY,44,2,s
+ST,49,2,s
+CALL,52,4,s
+LAT,58,7,n
+LON,66,7,n
+ELEV(M),75,7,n
+BEGIN,83,8,n
+END,92,8,n

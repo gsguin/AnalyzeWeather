@@ -1,0 +1,13 @@
+Field_Name,Start_Pos,Length,Data_Type
+Observation Year,1,4,n
+Observation Month,6,2,n
+Observation Day,9,2,n
+Observation Hour,12,2,n
+Air Temperature,14,6,n
+Dew Point Temperature,20,6,n
+Sea Level Pressure,26,6,n
+Wind Direction,32,6,n
+Wind Speed Rate,38,6,n
+Sky Condition Total Coverage Code,44,6,n
+Liquid Precipitation Depth Dimension - One Hour Duration,50,6,n
+Liquid Precipitation Depth Dimension - Six Hour Duration,56,6,n
