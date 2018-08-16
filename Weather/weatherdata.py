@@ -22,9 +22,10 @@ class WeatherData():
         self.stationHistoryData = self.__getStationHistoryData()
         #self.stationHistoryData = self.getStationHistoryData(self.getParameterValue('StationHistoryFilename')) #pd.read_csv(self.getParameterValue('StationHistoryFilename'), sep=',', skiprows=20)
         self.dataFormat = pd.read_csv(self.getParameterValue('DataFormat'), sep=',', header=0)
-        columns=self.dataFormat.iloc[:,0].values.tolist()
-        columns.append(('FileName'))
-        self.data = pd.DataFrame(columns=columns)
+        self.truncateData() # to initialize the data with empty dataframe
+#        columns=self.dataFormat.iloc[:,0].values.tolist()
+#        columns.append(('FileName'))
+#        self.data = pd.DataFrame(columns=columns)
         self.dataFileLocation = self.getParameterValue('DataLocation')
         #self.appendData(self.getParameterValue('SampleDataFile'))
         #self.data.truncate(before=1,after=0)
@@ -50,11 +51,21 @@ class WeatherData():
         # Returns: None
         # 
         temp_data = self.__readFixedWidthFile(p_structureData=self.dataFormat, p_fileName=fileName)
-        temp_data['FileName'] = fileName[:12]
+        temp_data['FileName'] = fileName[-20:][:12]
         if isinstance(self.data, pd.DataFrame):
             self.data = self.data.append(temp_data)
         else:
             self.data = temp_data
+        return
+
+    def truncateData(self):
+        # Truncate the weather data of the object
+        # Parameters: None
+        # Returns: None
+        # 
+        columns=self.dataFormat.iloc[:,0].values.tolist()
+        columns.append(('FileName'))
+        self.data = pd.DataFrame(columns=columns)
         return
     
     def __getStationHistoryData(self):
@@ -121,7 +132,7 @@ class WeatherData():
             i=0
             for t_USAF in p_USAFList.split(','):
                 if i == 0 :
-                    temp_data = hist_data[hist_data['USAF'] == t_USAF]
+                    temp_data = hist_data[hist_data['USAF'] == t_USAF.strip()]
                     i += 1
                 else:
                     temp_data.append(hist_data[hist_data['USAF'] == t_USAF])
@@ -131,7 +142,7 @@ class WeatherData():
         fileNames = []
         for t_year in range(int(p_StartYear),int(p_EndtYear)):
             temp_data = hist_data[hist_data['BEGIN'] <= int(str(t_year)+'1231')]
-            temp_data = hist_data[hist_data['END'] >= int(str(t_year)+'1231')]
+            temp_data = temp_data[temp_data['END'] >= int(str(t_year)+'1231')]
             temp_data['Year'] = str(t_year)
             fileNames.extend((temp_data['Year'] + '/' + temp_data['USAF'] + '-' + temp_data['WBAN'] + '-' + temp_data['Year'] +'.gz').values.tolist())
         
@@ -154,7 +165,7 @@ def main():
     for t_filename in fileNames:
         weatherData.appendData(weatherData.dataFileLocation+t_filename)
     
-    print(weatherData.head)
+    print(weatherData.data.head)
     
 if __name__ == "__main__":
     main()
